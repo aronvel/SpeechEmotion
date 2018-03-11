@@ -1,2 +1,2 @@
 # SpeechEmotion
-emotionDetection in Speecj
+emotionDetection in Speech
