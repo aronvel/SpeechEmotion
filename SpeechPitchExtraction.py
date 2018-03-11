@@ -3,6 +3,7 @@ from numpy import array,ma
 import aubio as au
 import glob as gb
 import scipy.io.wavfile as sc
+import analyse as an
 
 # Function  to get the pitch from a wav file
 def getPitch(filename):
@@ -41,6 +42,8 @@ def getPitch(filename):
     confidences = array(confidences[1:])
     cleaned_pitches = pitches
 
+    loudness = abs(an.loudness(inputdata))
+    
     # EXtracting all those pitch levels that are above the confidence values
     cleaned_pitches = ma.masked_where(confidences < tolerance, cleaned_pitches,copy=False)
     cleaned_pitches = cleaned_pitches[~cleaned_pitches.mask]
@@ -50,8 +53,8 @@ def getPitch(filename):
         maxValue = 0
     else:
         maxValue = max(cleaned_pitches)
-    return maxValue
+    return maxValue,loudness
 
 if __name__=="__main__":
-    print getPitch("/mnt/c/Users/dell/Downloads/test.wav")
+    print getPitch("/mnt/c/Users/dell/Desktop/testt.wav")
 
